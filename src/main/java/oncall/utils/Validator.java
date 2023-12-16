@@ -1,7 +1,9 @@
 package oncall.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Validator {
     public static void checkBlank(String input) {
@@ -25,6 +27,27 @@ public class Validator {
         }
         if (!dayOfWeeks.contains(input[1])) {
             throw new IllegalArgumentException("요일 올바르게 입력");
+        }
+    }
+
+    public static void checkDuplicateMember(List<String> members) {
+        List<String> distinctArr = members.stream().distinct().toList();
+        if (members.size() != distinctArr.size()) {
+            throw new IllegalArgumentException("중복된 멤버 있음");
+        }
+    }
+
+    public static void checkMemberNameLength(List<String> members) {
+        for (String name : members) {
+            if (name.length() > 5) {
+                throw new IllegalArgumentException("이름 길이는 5자 이하");
+            }
+        }
+    }
+
+    public static void checkMemberSize(List<String> members) {
+        if (members.size() < 5 || members.size() > 35) {
+            throw new IllegalArgumentException("비상근무자는 5명~35명");
         }
     }
 }

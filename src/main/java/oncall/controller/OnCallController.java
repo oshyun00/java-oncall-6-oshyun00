@@ -14,9 +14,10 @@ public class OnCallController {
     public void start() {
 
         List<String> monthAndDayOfWeek;
-        do {
             monthAndDayOfWeek = inputView.getMonthAndDayOfWeek();
-        }
-        while (monthAndDayOfWeek.size() == 0);
+
+        List<String> weekDayMember;
+        weekDayMember = inputView.getWeekdayMember();
+
     }
 }
