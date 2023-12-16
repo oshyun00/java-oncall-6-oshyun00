@@ -44,27 +44,25 @@ public class Computer {
         List<String> finalMemberList = new ArrayList<>();
         finalMemberList.add("");
 
-        // Schedule순회하면서
         for (int i = 0; i < schedules.size(); i++) {
             Schedule eachSchedule = schedules.get(i);
-
-            if (eachSchedule.isHoliday || eachSchedule.isWeekEnd()) {
-                int index = getIndex(weekEndUsed);
-                String name = WeekendMember.get(index);
-                index = checkDuplicate(weekEndUsed, finalMemberList, index, name);
-                name = WeekendMember.get(index);
-                finalMemberList.add(name);
-                eachSchedule.setWorker(name);
+            if (eachSchedule.isHoliday() || eachSchedule.isWeekEnd()) {
+                choiceMember(weekEndUsed, WeekendMember, finalMemberList, eachSchedule);
                 continue;
             }
-
-            int index = getIndex(weekDayUsed);
-            String name = WeekdayMember.get(index);
-            index = checkDuplicate(weekDayUsed, finalMemberList, index, name);
-            name = WeekdayMember.get(index);
-            finalMemberList.add(name);
-            eachSchedule.setWorker(name);
+            choiceMember(weekDayUsed, WeekdayMember, finalMemberList, eachSchedule);
         }
+    }
+
+    private void choiceMember(List<Boolean> weekDayUsed, List<String> weekdayMember,
+                              List<String> finalMemberList,
+                              Schedule eachSchedule) {
+        int index = getIndex(weekDayUsed);
+        String name = weekdayMember.get(index);
+        index = checkDuplicate(weekDayUsed, finalMemberList, index, name);
+        name = weekdayMember.get(index);
+        finalMemberList.add(name);
+        eachSchedule.setWorker(name);
     }
 
     private static int checkDuplicate(List<Boolean> isUsed, List<String> finalMemberList, int index, String name) {
@@ -75,7 +73,6 @@ public class Computer {
         }
         return index;
     }
-
 
     public int getIndex(List<Boolean> isUsed) {
         if (!isUsed.contains(false)) {

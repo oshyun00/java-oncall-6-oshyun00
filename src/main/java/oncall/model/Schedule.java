@@ -17,7 +17,7 @@ public class Schedule {
         this.isHoliday = isHoliday;
     }
 
-    private boolean isHoliday() {
+    public boolean isHoliday() {
         return isHoliday;
     }
 
