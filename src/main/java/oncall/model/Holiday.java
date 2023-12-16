@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public enum Holiday {
-    NONE("0",0,""),
+    NONE("0", 0, ""),
     JANUARY("1", 1, "신정"),
     MARCH("3", 1, "삼일절"),
     MAY("5", 5, "어린이날"),
@@ -14,9 +14,9 @@ public enum Holiday {
     OCT2("10", 9, "한글날"),
     DEC("12", 25, "성탄절");
 
-    String month;
-    int day;
-    String holidayName;
+    final String month;
+    final int day;
+    final String holidayName;
 
     Holiday(String month, int day, String holidayName) {
         this.month = month;
@@ -24,18 +24,11 @@ public enum Holiday {
         this.holidayName = holidayName;
     }
 
-    public static Holiday getHoliday(String monthNum, int dayNum) {
-        return Arrays.stream(Holiday.values())
-                .filter(element -> Objects.equals(element.getMonth(), monthNum) && element.getDay() == dayNum)
+    public static boolean isHoliday(String monthNum, int dayNum) {
+        Holiday findHoliday = Arrays.stream(Holiday.values())
+                .filter(element -> Objects.equals(element.month, monthNum) && element.day == dayNum)
                 .findAny()
                 .orElse(NONE);
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public int getDay() {
-        return day;
+        return findHoliday != NONE;
     }
 }

@@ -17,8 +17,8 @@ public enum Month {
     NOV("11", 30),
     DEC("12", 31);
 
-    String month;
-    int days;
+    final String month;
+    final int days;
 
     Month(String month, int days) {
         this.month = month;
@@ -27,16 +27,8 @@ public enum Month {
 
     public static int getTotalDays(String month) {
         return Arrays.stream(Month.values())
-                .filter(element -> element.getMonth().equals(month))
+                .filter(element -> element.month.equals(month))
                 .findAny()
-                .orElse(NONE).getDays();
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public int getDays() {
-        return days;
+                .orElse(NONE).days;
     }
 }

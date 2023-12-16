@@ -1,10 +1,6 @@
 package oncall.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import oncall.model.Holiday;
 
 public class Validator {
     public static void checkBlank(String input) {
@@ -63,9 +59,5 @@ public class Validator {
                 throw new IllegalArgumentException("유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
             }
         }
-    }
-
-    public static boolean checkHoliday(String month, int day) {
-        return Holiday.getHoliday(month, day) != Holiday.NONE;
     }
 }

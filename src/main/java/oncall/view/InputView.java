@@ -1,7 +1,6 @@
 package oncall.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import java.util.ArrayList;
 import java.util.List;
 import oncall.utils.Parser;
 import oncall.utils.Validator;

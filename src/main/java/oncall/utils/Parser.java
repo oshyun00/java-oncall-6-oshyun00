@@ -11,7 +11,7 @@ public class Parser {
         return List.of(splitInput);
     }
 
-    public static List<String> inputToMember(String input){
+    public static List<String> inputToMember(String input) {
         Validator.checkBlank(input);
         String[] splitInput = input.split(",");
         List<String> member = List.of(splitInput);

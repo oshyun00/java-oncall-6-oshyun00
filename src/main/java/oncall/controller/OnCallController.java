@@ -20,9 +20,9 @@ public class OnCallController {
     public void start() {
 
         List<String> monthAndDayOfWeek = inputView.getMonthAndDayOfWeek();
-
         List<String> weekDayMember = new ArrayList<>();
         List<String> weekEndMember = new ArrayList<>();
+
         do {
             weekDayMember = inputView.getWeekdayMember();
             weekEndMember = inputView.getWeekEndMember(weekDayMember);
@@ -32,8 +32,7 @@ public class OnCallController {
         computer.makeCalender();
         computer.makeSchedule();
 
-        List<Schedule> finalSchedule = computer.getToTalSchedule();
+        List<Schedule> finalSchedule = computer.getTotalSchedule();
         outputView.printResult(finalSchedule);
-
     }
 }

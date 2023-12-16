@@ -1,10 +1,7 @@
 package oncall.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import oncall.utils.Validator;
-import org.w3c.dom.ls.LSOutput;
 
 public class Computer {
     private final List<String> monthAndDayOfWeek;
@@ -32,7 +29,7 @@ public class Computer {
         int i = 0;
         int j = startIndex;
         for (i = 0; i < totalDays; i++) {
-            boolean isHoliday = Validator.checkHoliday(month, i);
+            boolean isHoliday = Holiday.isHoliday(month, i);
             schedules.add(new Schedule(month, i + 1, dayOfWeekName.get(j++), isHoliday));
             if (j == 7) {
                 j -= 7;
@@ -94,7 +91,7 @@ public class Computer {
         return index;
     }
 
-    public List<Schedule> getToTalSchedule() {
+    public List<Schedule> getTotalSchedule() {
         return schedules;
     }
 
