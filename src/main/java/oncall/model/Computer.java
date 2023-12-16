@@ -53,7 +53,6 @@ public class Computer {
             Schedule eachSchedule = schedules.get(i);
 
             if (eachSchedule.isHoliday || eachSchedule.isWeekEnd()) {
-                // 날짜가 휴일이면 휴일 리스트에서 가져오기
                 int index = getIndex(weekEndUsed);
                 String name = WeekendMember.get(index);
 
@@ -67,19 +66,28 @@ public class Computer {
                 eachSchedule.setWorker(name);
                 continue;
             }
-            // 날짜가 주말 평일이면 평일 리스트에서 가져오기
+
             int index = getIndex(weekDayUsed);
             String name = WeekdayMember.get(index);
 
             // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
             if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
-                weekEndUsed.set(index, false);
+                weekDayUsed.set(index, false);
                 index = getIndex(weekDayUsed);
                 name = WeekdayMember.get(index);
             }
             finalMemberList.add(name);
             eachSchedule.setWorker(name);
         }
+    }
+
+    private String checkWeekendDuplicate(List<Boolean> weekEndUsed, List<String> finalMemberList, int index, String name) {
+        if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
+            weekEndUsed.set(index, false);
+            index = getIndex(weekEndUsed);
+            name = WeekendMember.get(index);
+        }
+        return name;
     }
 
     public int getIndex(List<Boolean> isUsed) {
