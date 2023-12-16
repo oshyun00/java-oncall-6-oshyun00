@@ -20,11 +20,7 @@ public class Computer {
     // 전체 날짜 및 요일 넣기
     public void makeCalender() {
         String month = monthAndDayOfWeek.get(0);
-
-        // 요일 시작 인덱스
         int startIndex = dayOfWeekName.indexOf(monthAndDayOfWeek.get(1));
-
-        // 총 며칠인지
         int totalDays = Month.getTotalDays(monthAndDayOfWeek.get(0));
 
         int j = startIndex;
@@ -55,14 +51,8 @@ public class Computer {
             if (eachSchedule.isHoliday || eachSchedule.isWeekEnd()) {
                 int index = getIndex(weekEndUsed);
                 String name = WeekendMember.get(index);
-
-                // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
-                if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
-                    weekEndUsed.set(index, false);
-                    index = index + 1;
-                    weekEndUsed.set(index,true);
-                    name = WeekendMember.get(index);
-                }
+                index = checkDuplicate(weekEndUsed, finalMemberList, index, name);
+                name = WeekendMember.get(index);
                 finalMemberList.add(name);
                 eachSchedule.setWorker(name);
                 continue;
@@ -70,28 +60,22 @@ public class Computer {
 
             int index = getIndex(weekDayUsed);
             String name = WeekdayMember.get(index);
-
-            // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
-            if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
-                weekDayUsed.set(index, false);
-                index = index + 1;
-                weekDayUsed.set(index,true);
-                name = WeekdayMember.get(index);
-            }
+            index = checkDuplicate(weekDayUsed, finalMemberList, index, name);
+            name = WeekdayMember.get(index);
             finalMemberList.add(name);
             eachSchedule.setWorker(name);
         }
     }
 
-    private String checkWeekendDuplicate(List<Boolean> weekEndUsed, List<String> finalMemberList, int index,
-                                         String name) {
+    private static int checkDuplicate(List<Boolean> isUsed, List<String> finalMemberList, int index, String name) {
         if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
-            weekEndUsed.set(index, false);
-            index = getIndex(weekEndUsed);
-            name = WeekendMember.get(index);
+            isUsed.set(index, false);
+            index = index + 1;
+            isUsed.set(index, true);
         }
-        return name;
+        return index;
     }
+
 
     public int getIndex(List<Boolean> isUsed) {
         if (!isUsed.contains(false)) {
