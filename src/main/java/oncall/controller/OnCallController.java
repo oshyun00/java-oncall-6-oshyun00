@@ -2,6 +2,7 @@ package oncall.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import oncall.model.Computer;
 import oncall.view.InputView;
 
 public class OnCallController {
@@ -22,5 +23,8 @@ public class OnCallController {
             weekDayMember = inputView.getWeekdayMember();
             weekEndMember = inputView.getWeekEndMember(weekDayMember);
         } while (weekEndMember == null);
+
+        Computer computer = new Computer(monthAndDayOfWeek, weekDayMember, weekEndMember);
+        computer.makeCalender();
     }
 }

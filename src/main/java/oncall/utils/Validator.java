@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import oncall.model.Holiday;
 
 public class Validator {
     public static void checkBlank(String input) {
@@ -62,5 +63,9 @@ public class Validator {
                 throw new IllegalArgumentException("평일, 주말 같은 사람 배정되어야함");
             }
         }
+    }
+
+    public static boolean checkHoliday(String month, int day) {
+        return Holiday.getHoliday(month, day) != Holiday.NONE;
     }
 }
