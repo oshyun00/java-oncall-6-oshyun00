@@ -1,5 +1,6 @@
 package oncall.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import oncall.view.InputView;
 
@@ -13,11 +14,13 @@ public class OnCallController {
 
     public void start() {
 
-        List<String> monthAndDayOfWeek;
-            monthAndDayOfWeek = inputView.getMonthAndDayOfWeek();
+        List<String> monthAndDayOfWeek = inputView.getMonthAndDayOfWeek();
 
-        List<String> weekDayMember;
-        weekDayMember = inputView.getWeekdayMember();
-
+        List<String> weekDayMember = new ArrayList<>();
+        List<String> weekEndMember = new ArrayList<>();
+        do {
+            weekDayMember = inputView.getWeekdayMember();
+            weekEndMember = inputView.getWeekEndMember(weekDayMember);
+        } while (weekEndMember == null);
     }
 }

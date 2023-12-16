@@ -50,4 +50,17 @@ public class Validator {
             throw new IllegalArgumentException("비상근무자는 5명~35명");
         }
     }
+
+    public static void checkWeekendMember(List<String> weekdayMember, List<String> weekendMember) {
+        // 두개 사이즈 맞는지 검증
+        if (weekendMember.size() != weekdayMember.size()) {
+            throw new IllegalArgumentException("평일, 주말 사람 수 동일해야함");
+        }
+        // 동일한 사람 들어있는지 검증
+        for (String name : weekdayMember) {
+            if (!weekendMember.contains(name)) {
+                throw new IllegalArgumentException("평일, 주말 같은 사람 배정되어야함");
+            }
+        }
+    }
 }
