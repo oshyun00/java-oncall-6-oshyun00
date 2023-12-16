@@ -36,13 +36,8 @@ public class Computer {
     public void makeSchedule() {
         List<Boolean> weekDayUsed = new ArrayList<>();
         List<Boolean> weekEndUsed = new ArrayList<>();
-        for (int i = 0; i < WeekdayMember.size(); i++) {
-            weekDayUsed.add(false);
-            weekEndUsed.add(false);
-        }
-
         List<String> finalMemberList = new ArrayList<>();
-        finalMemberList.add("");
+        setFields(weekDayUsed, weekEndUsed, finalMemberList);
 
         for (int i = 0; i < schedules.size(); i++) {
             Schedule eachSchedule = schedules.get(i);
@@ -51,6 +46,14 @@ public class Computer {
                 continue;
             }
             choiceMember(weekDayUsed, WeekdayMember, finalMemberList, eachSchedule);
+        }
+    }
+
+    private void setFields(List<Boolean> weekDayUsed, List<Boolean> weekEndUsed, List<String> finalMemberList) {
+        for (int i = 0; i < WeekdayMember.size(); i++) {
+            weekDayUsed.add(false);
+            weekEndUsed.add(false);
+            finalMemberList.add("");
         }
     }
 
