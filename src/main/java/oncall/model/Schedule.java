@@ -38,7 +38,8 @@ public class Schedule {
             System.out.printf("%s월 %d일 %s(휴일) %s\n", month, day, dayOfWeek, worker);
             return;
         }
-        System.out.printf("%s월 %d일 %s %s\n", month, day, dayOfWeek, worker);
+        System.out.printf("%s월 %d일 %s %s", month, day, dayOfWeek, worker);
+        System.out.println();
 
     }
 }

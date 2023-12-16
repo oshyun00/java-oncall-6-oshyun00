@@ -57,7 +57,7 @@ public class Computer {
 
             if (eachSchedule.isHoliday || eachSchedule.isWeekEnd()) {
                 // 날짜가 휴일이면 휴일 리스트에서 가져오기
-                int index = getIndex(weekDayUsed);
+                int index = getIndex(weekEndUsed);
                 String name = WeekendMember.get(index);
 
                 // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
