@@ -27,11 +27,10 @@ public class Computer {
         // 총 며칠인지
         int totalDays = Month.getTotalDays(monthAndDayOfWeek.get(0));
 
-        int i = 0;
         int j = startIndex;
-        for (i = 0; i < totalDays; i++) {
+        for (int i = 1; i < totalDays + 1; i++) {
             boolean isHoliday = Holiday.isHoliday(month, i);
-            schedules.add(new Schedule(month, i + 1, dayOfWeekName.get(j++), isHoliday));
+            schedules.add(new Schedule(month, i, dayOfWeekName.get(j++), isHoliday));
             if (j == ConstantUtils.COUNT_OF_DAY_OF_WEEK) {
                 j -= ConstantUtils.COUNT_OF_DAY_OF_WEEK;
             }
