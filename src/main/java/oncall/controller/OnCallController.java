@@ -3,14 +3,18 @@ package oncall.controller;
 import java.util.ArrayList;
 import java.util.List;
 import oncall.model.Computer;
+import oncall.model.Schedule;
 import oncall.view.InputView;
+import oncall.view.OutputView;
 
 public class OnCallController {
 
     InputView inputView;
+    OutputView outputView;
 
-    public OnCallController(InputView inputView) {
+    public OnCallController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
+        this.outputView = outputView;
     }
 
     public void start() {
@@ -27,6 +31,9 @@ public class OnCallController {
         Computer computer = new Computer(monthAndDayOfWeek, weekDayMember, weekEndMember);
         computer.makeCalender();
         computer.makeSchedule();
+
+        List<Schedule> finalSchedule = computer.getToTalSchedule();
+        outputView.printResult(finalSchedule);
 
     }
 }

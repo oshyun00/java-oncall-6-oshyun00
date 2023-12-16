@@ -8,7 +8,8 @@ public class Application {
         // TODO: 프로그램 구현
         AppConfigurer appConfigurer = new AppConfigurer();
         OnCallController onCallController = new OnCallController(
-                appConfigurer.inputView()
+                appConfigurer.inputView(),
+                appConfigurer.outputView()
         );
 
         onCallController.start();

@@ -83,7 +83,6 @@ public class Computer {
             finalMemberList.add(name);
             eachSchedule.setWorker(name);
         }
-        System.out.println("배정결과: " + Arrays.toString(finalMemberList.toArray()));
     }
 
     public int getIndex(List<Boolean> isUsed) {
@@ -93,6 +92,10 @@ public class Computer {
         int index = isUsed.indexOf(false);
         isUsed.set(index, true);
         return index;
+    }
+
+    public List<Schedule> getToTalSchedule() {
+        return schedules;
     }
 
 }
