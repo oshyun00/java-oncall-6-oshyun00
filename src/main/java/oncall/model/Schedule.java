@@ -1,6 +1,7 @@
 package oncall.model;
 
 import java.util.List;
+import oncall.utils.ConstantUtils;
 
 public class Schedule {
     String month;
@@ -31,9 +32,9 @@ public class Schedule {
 
     public void printSchedule() {
         if (!isWeekEnd() && isHoliday()) {
-            System.out.printf("%s월 %d일 %s(휴일) %s\n", month, day, dayOfWeek, worker);
+            System.out.printf(ConstantUtils.PRINT_HOLIDAY, month, day, dayOfWeek, worker);
             return;
         }
-        System.out.printf("%s월 %d일 %s %s\n", month, day, dayOfWeek, worker);
+        System.out.printf(ConstantUtils.PRINT_NORMAL_DAY, month, day, dayOfWeek, worker);
     }
 }

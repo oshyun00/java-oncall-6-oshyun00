@@ -2,13 +2,14 @@ package oncall.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import oncall.utils.ConstantUtils;
 
 public class Computer {
     private final List<String> monthAndDayOfWeek;
     private final List<String> WeekdayMember;
     private final List<String> WeekendMember;
     List<Schedule> schedules = new ArrayList<>();
-    List<String> dayOfWeekName = List.of("월", "화", "수", "목", "금", "토", "일");
+    List<String> dayOfWeekName = List.of(ConstantUtils.DAY_OF_WEEK_NAME);
 
     public Computer(List<String> monthAndDayOfWeek, List<String> WeekdayMember, List<String> weekendMember) {
         this.monthAndDayOfWeek = monthAndDayOfWeek;
@@ -31,8 +32,8 @@ public class Computer {
         for (i = 0; i < totalDays; i++) {
             boolean isHoliday = Holiday.isHoliday(month, i);
             schedules.add(new Schedule(month, i + 1, dayOfWeekName.get(j++), isHoliday));
-            if (j == 7) {
-                j -= 7;
+            if (j == ConstantUtils.COUNT_OF_DAY_OF_WEEK) {
+                j -= ConstantUtils.COUNT_OF_DAY_OF_WEEK;
             }
         }
     }
