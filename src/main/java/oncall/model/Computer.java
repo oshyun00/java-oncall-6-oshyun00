@@ -59,7 +59,8 @@ public class Computer {
                 // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
                 if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
                     weekEndUsed.set(index, false);
-                    index = getIndex(weekEndUsed);
+                    index = index + 1;
+                    weekEndUsed.set(index,true);
                     name = WeekendMember.get(index);
                 }
                 finalMemberList.add(name);
@@ -73,7 +74,8 @@ public class Computer {
             // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
             if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
                 weekDayUsed.set(index, false);
-                index = getIndex(weekDayUsed);
+                index = index + 1;
+                weekDayUsed.set(index,true);
                 name = WeekdayMember.get(index);
             }
             finalMemberList.add(name);
@@ -81,7 +83,8 @@ public class Computer {
         }
     }
 
-    private String checkWeekendDuplicate(List<Boolean> weekEndUsed, List<String> finalMemberList, int index, String name) {
+    private String checkWeekendDuplicate(List<Boolean> weekEndUsed, List<String> finalMemberList, int index,
+                                         String name) {
         if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
             weekEndUsed.set(index, false);
             index = getIndex(weekEndUsed);
