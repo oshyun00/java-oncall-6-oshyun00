@@ -1,5 +1,7 @@
 package oncall.model;
 
+import java.time.DayOfWeek;
+import java.util.List;
 import oncall.utils.Validator;
 
 public class Schedule {
@@ -25,5 +27,10 @@ public class Schedule {
         this.day = day;
         this.dayOfWeek = dayOfWeek;
         this.isHoliday = isHoliday;
+    }
+
+    public boolean isWeekEnd(){
+        List<String> weekEnd = List.of("토","일");
+        return weekEnd.contains(dayOfWeek);
     }
 }

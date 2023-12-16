@@ -1,6 +1,7 @@
 package oncall.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import oncall.utils.Validator;
 import org.w3c.dom.ls.LSOutput;
@@ -20,10 +21,10 @@ public class Computer {
 
     // 전체 날짜 및 요일 넣기
     public void makeCalender() {
-        String month = monthAndDayOfWeek.get(1);
+        String month = monthAndDayOfWeek.get(0);
 
         // 요일 시작 인덱스
-        int startIndex = dayOfWeekName.indexOf(month);
+        int startIndex = dayOfWeekName.indexOf(monthAndDayOfWeek.get(1));
 
         // 총 며칠인지
         int totalDays = Month.getTotalDays(monthAndDayOfWeek.get(0));
@@ -32,15 +33,66 @@ public class Computer {
         int j = startIndex;
         for (i = 0; i < totalDays; i++) {
             boolean isHoliday = Validator.checkHoliday(month, i);
-            schedules.add(new Schedule(month, i, dayOfWeekName.get(j++), isHoliday));
+            schedules.add(new Schedule(month, i + 1, dayOfWeekName.get(j++), isHoliday));
             if (j == 7) {
                 j -= 7;
             }
         }
-        System.out.println("캘린더객체수:" + schedules.size());
     }
 
-//    public void makeCalender()
-    // 넣으면서 휴일도 넣어주기
+    public void makeSchedule() {
+        List<Boolean> weekDayUsed = new ArrayList<>();
+        List<Boolean> weekEndUsed = new ArrayList<>();
+        for (int i = 0; i < WeekdayMember.size(); i++) {
+            weekDayUsed.add(false);
+            weekEndUsed.add(false);
+        }
+
+        List<String> finalMemberList = new ArrayList<>();
+        finalMemberList.add("");
+
+        // Schedule순회하면서
+        for (int i = 0; i < schedules.size(); i++) {
+            Schedule eachSchedule = schedules.get(i);
+
+            if (eachSchedule.isHoliday || eachSchedule.isWeekEnd()) {
+                // 날짜가 휴일이면 휴일 리스트에서 가져오기
+                int index = getIndex(weekDayUsed);
+                String name = WeekendMember.get(index);
+
+                // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
+                if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
+                    weekEndUsed.set(index, false);
+                    index = getIndex(weekEndUsed);
+                    name = WeekendMember.get(index);
+                }
+                finalMemberList.add(name);
+                eachSchedule.setWorker(name);
+                continue;
+            }
+            // 날짜가 주말 평일이면 평일 리스트에서 가져오기
+            int index = getIndex(weekDayUsed);
+            String name = WeekdayMember.get(index);
+
+            // 만약 앞사람과 중복된다면 해당 사람 사용 안한걸로 바꾸고 다음사람 가져오기
+            if (finalMemberList.get(finalMemberList.size() - 1).equals(name)) {
+                weekEndUsed.set(index, false);
+                index = getIndex(weekDayUsed);
+                name = WeekdayMember.get(index);
+            }
+            finalMemberList.add(name);
+            eachSchedule.setWorker(name);
+        }
+        System.out.println("배정결과: " + Arrays.toString(finalMemberList.toArray()));
+    }
+
+    public int getIndex(List<Boolean> isUsed) {
+        if (!isUsed.contains(false)) {
+            isUsed.replaceAll(ignored -> false);
+        }
+        int index = isUsed.indexOf(false);
+        isUsed.set(index, true);
+        return index;
+    }
 
 }

@@ -26,5 +26,7 @@ public class OnCallController {
 
         Computer computer = new Computer(monthAndDayOfWeek, weekDayMember, weekEndMember);
         computer.makeCalender();
+        computer.makeSchedule();
+
     }
 }
